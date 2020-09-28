@@ -1,5 +1,18 @@
 ## Put comments here that give an overall description of what your
 ## functions do
+# The function makeCacheMatrix() takes as imput a matrix x and 
+# returns a list of operations on its internally stored objects x 
+# (a matrix) and inv_x (a cached copy of the inverse of matrix x).
+# The operations are getters and setters for the internal objects.
+# Only setinv() calculates the inverse of x and stores it in inv_x.
+#
+# The function cacheSolve() takes as input an object created by
+# makeCacheMatrix() and returns the inverse of its internal matrix x.
+# At first it tries to get the inverse of x from cache and
+# if it fails it then computes the inverse and stores it to the cache
+# for next time.
+#
+
 
 ####################################
 # Usage: makeCacheMatrix(x)
@@ -11,19 +24,19 @@
 #   to set and get the inverse matrix of the argument x
 ###################################
 makeCacheMatrix <- function(x = matrix()) {
-  inv_mem <- NULL
+  inv_x <- NULL
   set <- function(y) {
     x <<- y
-    inv_mem <<- NULL
+    inv_x <<- NULL
   }
   get <- function() x
   
   setinv <- function(x, ...) {
-    inv_mem <<- solve(x, ...)
-    inv_mem
+    inv_x <<- solve(x, ...)
+    inv_x
   }
   
-  getinv <- function() inv_mem
+  getinv <- function() inv_x
   
   list(set = set, get = get,
        setinv = setinv,
@@ -68,3 +81,31 @@ cacheSolve <- function(x, ...) {
   # Return the calculated inverse matrix
   inverse_mat
 }
+
+
+## Example #############################################################
+# Set the seed for reproducability
+# set.seed(123)
+#
+# Set n. Do not set too large because inversion will take for ever
+# n <- 3000
+#
+# Create a square matrix A with random uniform numbers
+# A <- matrix(runif(n^2),n)
+#
+# Create a cache matrix object by calling makeCacheMatrix()
+# cmat <- makeCacheMatrix(A)
+#
+# Calculate the inverse of A with cacheSolve() and cache the result
+# system.time({
+#   z1 <- cacheSolve(cmat)
+# })
+#
+# Take the inverse from cache
+# system.time({
+#   z2 <- cacheSolve(cmat)
+# })
+#
+# Just checking that the two results are the same
+# identical(z1,z2)
+##########################################################################
