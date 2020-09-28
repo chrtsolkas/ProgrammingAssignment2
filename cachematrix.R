@@ -1,5 +1,10 @@
+## Coursera - R Programming course 
+## Peer-graded Assignment: Programming Assignment 2: Lexical Scoping
+## Christos Tsolkas - 28.09.2020
+##
 ## Put comments here that give an overall description of what your
 ## functions do
+#
 # The function makeCacheMatrix() takes as imput a matrix x and 
 # returns a list of operations on its internally stored objects x 
 # (a matrix) and inv_x (a cached copy of the inverse of matrix x).
